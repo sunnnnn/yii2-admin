@@ -4,7 +4,7 @@ namespace sunnnnn\admin\auth\controllers;
 use Yii;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use sunnnnn\admin\components\Controller;
+use sunnnnn\admin\auth\components\Controller;
 use sunnnnn\admin\auth\models\AuthRoles;
 use sunnnnn\admin\auth\models\AuthRoute;
 

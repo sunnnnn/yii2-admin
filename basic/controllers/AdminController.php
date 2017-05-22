@@ -104,22 +104,20 @@ class AdminController extends Controller{
     
     public function actionEditPassword(){
     	$model = new AdminForm();
-    	return $this->render('password', ['model' => $model]);
-    }
-
-    public function actionUpdatePassword(){
-    	$model = new AdminForm();
-    	if ($model->load(Yii::$app->request->post()) && $model->updatePassword()) {
-    		$this->outAjaxForm('#', '密码修改成功');
-    	}else{
-    		$error = $model->getErrors();
-    		if(!empty($error)){
-    			foreach($error as $err){
-    				$err = is_array($err) ? array_pop($err) : $err;
-    				$this->outAjaxForm('', $err);
-    				break;
+    	if(Yii::$app->request->isPost){
+    		if ($model->load(Yii::$app->request->post()) && $model->updatePassword()) {
+    			$this->outAjaxForm('#', '密码修改成功');
+    		}else{
+    			$error = $model->getErrors();
+    			if(!empty($error)){
+    				foreach($error as $err){
+    					$err = is_array($err) ? array_pop($err) : $err;
+    					$this->outAjaxForm('', $err);
+    					break;
+    				}
     			}
     		}
     	}
+    	return $this->render('password', ['model' => $model]);
     }
 }

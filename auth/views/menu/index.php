@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 </section>
 <?php $this->beginBlock('menu');?>
 	$('.btn-edit').click(function(){
-		var key = $(this).data('key');
-		location.href = '<?= Url::to(['/auth/menu/edit']) ?>' + '?id=' + key;
+		var href = $(this).data('href');
+		location.href = href;
 	});
 
 	$('.btn-delete').click(function(){

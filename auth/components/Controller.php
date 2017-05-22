@@ -1,5 +1,5 @@
 <?php
-namespace sunnnnn\admin\components;
+namespace sunnnnn\admin\auth\components;
 
 use Yii;
 use yii\helpers\ArrayHelper;

@@ -39,6 +39,15 @@ class m170519_062225_auth_db_manager extends Migration{
 				[15, '权限管理-菜单【添加操作】', '/auth/menu/add', time(), 0],
 				[16, '权限管理-菜单【编辑操作】', '/auth/menu/edit', time(), 0],
 				[17, '权限管理-菜单【删除操作】', '/auth/menu/delete', time(), 0],
+				[18, '管理员【所有权限】', '/admin/*', time(), 0],
+				[19, '管理员【首页展示】', '/admin/index', time(), 0],
+				[20, '管理员【添加操作】', '/admin/add', time(), 0],
+				[21, '管理员【编辑操作】', '/admin/edit', time(), 0],
+				[22, '管理员【删除操作】', '/admin/delete', time(), 0],
+				[23, '管理员【修改密码】', '/admin/edit-passowrd', time(), 0],
+				[24, '首页管理【所有权限】', '/site/*', time(), 0],
+				[25, '首页管理【首页展示】', '/site/index', time(), 0],
+				[26, '首页管理【退出登录】', '/site/logout', time(), 0],
         	]
 		);
         
@@ -74,10 +83,12 @@ class m170519_062225_auth_db_manager extends Migration{
         $this->batchInsert('{{%auth_menu}}', 
         	['id', 'name', 'parent', 'route', 'order', 'icon', 'add_time', 'edit_time'], 
         	[
-				[1, '权限管理', 0, 0, 1000, 'key', time(), 0],
-				[2, '菜单', 1, 14, 1001, '', time(), 0],
-				[3, '角色', 1, 9, 1002, '', time(), 0],
-				[4, '路由', 1, 4, 1003, '', time(), 0],
+				[1, '主页', 0, 25, 1, 'home', time(), 0],
+				[2, '权限管理', 0, 0, 1000, 'key', time(), 0],
+				[3, '管理员', 2, 19, 1001, '', time(), 0],
+				[4, '菜单', 2, 14, 1002, '', time(), 0],
+				[5, '角色', 2, 9, 1003, '', time(), 0],
+				[6, '路由', 2, 4, 1004, '', time(), 0],
         	]
 		);
         

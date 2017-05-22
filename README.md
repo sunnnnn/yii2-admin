@@ -21,11 +21,21 @@ yii-admin  后台管理系统-快速开发框架
 4、根据yii版本，将目录/vendor/sunnnnn/yii2-admin/下的文件复制覆盖到yii框架下：
 	advanced版本，将目录下advanced目录下的文件复制覆盖到对象位置，
 	basic版本，则将basic目录下所有文件复制覆盖到对象位置，
-	config文件可不用覆盖，根据注释添加到原config文件中
+	(config文件可不用覆盖，根据注释添加到原config文件中)
+	
+5、新建一个数据库：yii-admin（名字自己取）
+	basic版本，在 config/db.php 配置数据库链接，
+	advanced版本，在 common/config/main-local.php 配置数据库链接
 
 5、添加数据表及数据：
 	yii migrate --migrationPath=@sunnnnn/admin/auth/migrations/
 	失败可尝试：
 	php yii migrate --migrationPath=@sunnnnn/admin/auth/migrations/
 	
+	yes 等待完成
+	
 6、直接访问 http://your-domain/site/login页面，用户名admin、密码123456
+
+7、gii操作：
+	使用gii生成model：最下方的Code Template选项，选择 sunnnnn-admin-model
+	使用gii生成curd：最下方的Code Template选项，选择 sunnnnn-admin-curd

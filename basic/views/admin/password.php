@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				<?php $form = ActiveForm::begin([
 			        'id' => 'ajax-form',
 	        		'action' => null,
-	        		'options' => ['class' => 'ajax-form', 'data-action' => Url::to(['/admin/update-password'])],
+	        		'options' => ['class' => 'ajax-form', 'data-action' => Url::to(['/admin/edit-password'])],
 	        		'fieldConfig' => [
 	        			'template' => "<div class=\"form-group\">{label}\n{input}\n</div>",
 	        			'inputOptions' => ['class' => 'form-control'],

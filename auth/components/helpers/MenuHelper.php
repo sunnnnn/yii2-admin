@@ -2,6 +2,7 @@
 namespace sunnnnn\admin\auth\components\helpers;
 
 use Yii;
+use yii\helpers\Url;
 use sunnnnn\admin\auth\models\AuthMenu;
 use sunnnnn\admin\auth\models\AuthRoute;
 
@@ -74,7 +75,7 @@ class MenuHelper{
 						'{label}' => $val['label'], 
 						'{icon}' => $val['icon'], 
 						'{items}' => self::renderMenuItmes($val['items']),
-						'{edit}' => '<button class="btn btn-sm btn-primary btn-edit" data-key="'. $val['id'] .'"><i class="fa fa-pencil"></i> 编辑</button>',
+						'{edit}' => '<button class="btn btn-sm btn-primary btn-edit" data-href="'. Url::to(['/auth/menu/edit', 'id' => $val['id']]) .'"><i class="fa fa-pencil"></i> 编辑</button>',
 						'{delete}' => '<button class="btn btn-sm btn-danger btn-delete" data-key="'. $val['id'] .'"><i class="fa fa-trash-o"></i> 删除</button>',
 					];
 					$result .= strtr($tmp, $replace);
@@ -83,7 +84,7 @@ class MenuHelper{
 					$replace = [
 						'{label}' => $val['label'],
 						'{icon}' => $val['icon'],
-						'{edit}' => '<button class="btn btn-sm btn-primary btn-edit" data-key="'. $val['id'] .'"><i class="fa fa-pencil"></i> 编辑</button>',
+						'{edit}' => '<button class="btn btn-sm btn-primary btn-edit" data-href="'. Url::to(['/auth/menu/edit', 'id' => $val['id']]) .'"><i class="fa fa-pencil"></i> 编辑</button>',
 						'{delete}' => '<button class="btn btn-sm btn-danger btn-delete" data-key="'. $val['id'] .'"><i class="fa fa-trash-o"></i> 删除</button>',
 					];
 					$result .= strtr($tmp, $replace);
