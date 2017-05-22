@@ -1,0 +1,21 @@
+{
+    "name": "sunnnnn/yii2-admin",
+    "description": "admin manager for Yii2 ",
+    "keywords": ["yii", "admin", "auth", "rbac"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sunnnnn",
+            "email": "mrsunnnnn@qq.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "sunnnnn\\admin\\": ""
+        }
+    },
+}

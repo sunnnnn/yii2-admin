@@ -1,0 +1,54 @@
+<?php
+namespace backend\controllers;
+
+use Yii;
+use yii\helpers\Url;
+use backend\components\Controller;
+use backend\models\LoginForm;
+/**
+ * 
+* @use: 后台首页以及登录相关
+* @date: 2017-4-19 下午1:17:25
+* @author: sunnnnn [www.sunnnnn.com] [mrsunnnnn@qq.com]
+ */
+class SiteController extends Controller{
+	
+    public function actions(){
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    public function actionIndex(){
+        return $this->render('index');
+    }
+
+    public function actionLogin(){
+    	$this->layout = '/login';
+        $model = new LoginForm();
+		return $this->render('login', ['model' => $model]);
+    }
+    
+    public function actionAjaxLogin(){
+    	$model = new LoginForm();
+    	if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    		$this->outAjaxForm(Url::to(['/site/index']));
+    	}else{
+    		$error = $model->getErrors();
+    		if(!empty($error)){
+    			foreach($error as $err){
+    				$err = is_array($err) ? array_pop($err) : $err;
+    				$this->outAjaxForm('', $err);
+    				break;
+    			}
+    		}
+    	}
+    }
+
+    public function actionLogout(){
+        Yii::$app->user->logout();
+        return $this->goHome();
+    }
+}
