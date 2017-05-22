@@ -49,7 +49,7 @@ class MenuController extends Controller{
 	public function actionEdit(){
 		$model = AuthMenu::findOne(['id' => $this->getGetValue('id')]);
 		if(empty($model)){
-			throw new NotFoundHttpException('请求页面不存在');
+			throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
 		}
 		if(Yii::$app->request->isPost){
 			$model->load(Yii::$app->request->post());
@@ -80,7 +80,7 @@ class MenuController extends Controller{
 	public function actionDelete(){
 		$model = AuthMenu::findOne(['id' => $this->getPostValue('id')]);
 		if(empty($model)){
-			$this->outAjaxRequest(false, '非法请求');
+			throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
 		}
 	
 		if($model->delete()){
