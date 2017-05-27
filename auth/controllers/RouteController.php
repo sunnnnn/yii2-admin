@@ -73,6 +73,35 @@ class RouteController extends Controller{
     	}
 	}
 	
+	public function actionGii(){
+		$model = new AuthRoute();
+		if(Yii::$app->request->isPost){
+			if($model->load(Yii::$app->request->post()) && $model->validate()){
+				$count = Yii::$app->db->createCommand()->batchInsert('auth_route', ['name', 'route', 'add_time', 'edit_time'], [
+						[$model->name.'【所有权限】', '/'.trim($model->route, '/').'/*', time(), 0],
+						[$model->name.'【首页展示】', '/'.trim($model->route, '/').'/index', time(), 0],
+						[$model->name.'【添加操作】', '/'.trim($model->route, '/').'/add', time(), 0],
+						[$model->name.'【编辑操作】', '/'.trim($model->route, '/').'/edit', time(), 0],
+						[$model->name.'【删除操作】', '/'.trim($model->route, '/').'/delete', time(), 0],
+						])->execute();
+				if($count){
+					$this->checkCache();
+					return $this->outAjaxForm('#', 'success');
+				}
+			}else{
+				$errors = $model->getErrors();
+				if(!empty($errors)){
+					foreach($errors as $error){
+						$error = is_array($error) ? array_pop($error) : $error;
+						$this->outAjaxForm(false, $error);
+						break;
+					}
+				}
+			}
+		}
+		return $this->render('gii', ['model' => $model]);
+	}
+	
 	private function checkCache(){
 		if(Yii::$app->cache->exists(AuthRoute::CACHE_ROUTES_All)){
 			Yii::$app->cache->delete(AuthRoute::CACHE_ROUTES_All);
