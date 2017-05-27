@@ -37,7 +37,9 @@ $(function(){
 	        			that.attr('disabled', null);
 						layer.msg(result.message, {icon: 1, offset: '100px'});
 					}
-		        	location.href = result.url;
+					if(result.url.substr(0, 1) == '/'){
+			        	location.href = result.url;
+					}
 		        }else{
 		        	layer.close(load);
 	        		that.attr('disabled', null);
