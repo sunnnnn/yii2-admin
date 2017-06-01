@@ -83,7 +83,7 @@ class <?= $controllerClass ?> extends Controller{
 		if(Yii::$app->request->isPost){
 			$model->load(Yii::$app->request->post());
 			if($model->save()){
-				$this->outAjaxForm(Url::to(['/<?= strtolower($modelClass); ?>/index']));
+				$this->outAjaxForm('#', 'success');
 			}else{
 				$errors = $model->getErrors();
 				if(!empty($errors)){

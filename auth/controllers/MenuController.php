@@ -58,7 +58,7 @@ class MenuController extends Controller{
 			$model->edit_time = time();
 			if($model->save()){
 				$this->checkCache();
-				return $this->outAjaxForm(Url::to(['/auth/menu/index']));
+				return $this->outAjaxForm('#', 'success');
 			}else{
 				$errors = $model->getErrors();
 				if(!empty($errors)){

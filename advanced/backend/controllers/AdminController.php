@@ -64,7 +64,7 @@ class AdminController extends Controller{
     		$data['password'] = empty($data['password']) ? $model->password : Yii::$app->security->generatePasswordHash($data['password']);
     		$model->setAttributes($data);
     		if($model->save()){
-    			$this->outAjaxForm(Url::to(['/admin/index']));
+    			$this->outAjaxForm('#', 'success');
     		}else{
     			$errors = $model->getErrors();
     			if(!empty($errors)){
