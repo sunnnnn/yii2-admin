@@ -78,6 +78,7 @@ Modal::end();
 									"delete" => function($url, $model, $key){
 										return Html::a('<i class="fa fa-trash-o"></i> 删除', 'javascript:;', [
 											'class' => 'btn btn-sm btn-danger ajax-table-delete',
+										    'action' => Url::to(['/auth/route/delete'])
 										]);
 									}
 								]
@@ -89,9 +90,6 @@ Modal::end();
 		</div>
 	</div>
 </section>
-<script>
-	var url_delete = '<?= Url::to(['/auth/route/delete']); ?>';
-</script>
 <?php $this->beginBlock('form') ?> 
 $(function(){
 	$('.ajax-add').click(function(){
@@ -107,6 +105,8 @@ $(function(){
 			layer.close(load);
 			if(xhr.status == '403'){
 				layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
+			}else if(xhr.status == '404'){
+				layer.msg('请求的页面不存在', {icon: 2, offset: '100px'});
 			}else{
 	        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
 			}
@@ -128,6 +128,8 @@ $(function(){
 			layer.close(load);
 			if(xhr.status == '403'){
 				layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
+			}else if(xhr.status == '404'){
+				layer.msg('请求的页面不存在', {icon: 2, offset: '100px'});
 			}else{
 	        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
 			}
