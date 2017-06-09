@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "sunnnnn/yii2-helper": "*"
+        "sunnnnn/yii2-helper": "dev-master"
     },
     "autoload": {
         "psr-4": {
