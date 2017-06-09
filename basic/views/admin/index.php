@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 									"delete" => function($url, $model, $key){
 										return Html::a('<i class="fa fa-trash-o"></i> 删除', 'javascript:;', [
 											'class' => 'btn btn-sm btn-danger ajax-table-delete',
-										    'action' => Url::to(['/admin/delete'])
+										    'data-action' => Url::to(['/admin/delete'])
 										]);
 									}
 								]
