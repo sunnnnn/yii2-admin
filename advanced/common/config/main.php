@@ -6,10 +6,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'helper' => [
-        	'class' => 'common\components\helpers\Helper'
-		],
-		'curl' => [
-			'class' => 'common\components\helpers\Curl'
+        	'class' => 'sunnnnn\helper\Helper'
 		],
     ],
     'language'=>'zh-CN',

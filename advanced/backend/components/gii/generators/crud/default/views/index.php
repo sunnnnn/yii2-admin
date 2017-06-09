@@ -52,6 +52,15 @@ $this->params['breadcrumbs'][] = $this->title;
 						'tableOptions' => ['class' => 'table table-hover'],
 						'dataProvider' => $dataProvider,
 						'columns' => [ 
+//							[
+//								'attribute' => '',
+//								'headerOptions' => ['width' => '20%'],
+//								'contentOptions' => [],
+//								'format' => 'raw',
+//								'value' => function($model) {
+//									return '';
+//								},
+//							],
 							<?php
 							$count = 0;
 							if (($tableSchema = $generator->getTableSchema()) === false) {
@@ -86,6 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 									"delete" => function($url, $model, $key){
 										return Html::a('<i class="fa fa-trash-o"></i> 删除', 'javascript:;', [
 											'class' => 'btn btn-sm btn-danger ajax-table-delete',
+											'action' => Url::to(['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), false) ?>/delete'])
 										]);
 									}
 								]
@@ -97,6 +107,3 @@ $this->params['breadcrumbs'][] = $this->title;
     	</div>
     </div>
 </section>
-<script>
-var url_delete = '<?= '<?= ' ?> Url::to(["/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), false) ?>/delete"]); ?>';
-</script>

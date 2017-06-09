@@ -43,10 +43,7 @@ $config = [
         
         /****** sunnnnn/admin *******/
         'helper' => [
-        	'class' => 'app\components\helpers\Helper'
-        ],
-        'curl' => [
-        	'class' => 'app\components\helpers\Curl'
+            'class' => 'sunnnnn\helper\Helper'
         ],
         /*************************************/
     ],

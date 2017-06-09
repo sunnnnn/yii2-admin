@@ -37,7 +37,9 @@ $(function(){
 	        			that.attr('disabled', null);
 						layer.msg(result.message, {icon: 1, offset: '100px'});
 					}
-					if(result.url.substr(0, 1) == '/'){
+					if(result.url == '@'){
+						history.back();
+					}else if(result.url.substr(0, 1) == '/'){
 			        	location.href = result.url;
 					}
 		        }else{
@@ -58,7 +60,7 @@ $(function(){
 			layer.closeAll();
 			var load = layer.load();
 			$.ajax({
-				url: url_delete,
+				url: that.data('action'),
 				type: 'post',
 				data: {'id':father.data('key'), '_csrf':_csrf},
 				dataType: 'json',
@@ -101,7 +103,7 @@ $(function(){
 		});
 		var load = layer.load();
 		$.ajax({
-			url: url_ajax_upload,
+			url: that.data('action'),
 			type: 'post',
 			timeout: 600000,
 			data: formData,

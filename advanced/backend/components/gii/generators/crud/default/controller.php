@@ -42,7 +42,8 @@ class <?= $controllerClass ?> extends Controller{
     public function actionIndex(){
     	$searchModel = new <?= $modelClass ?>();
     	$searchModel->load(Yii::$app->request->queryParams);
-    	$condition = $andFilter = [];
+    	$condition = ['status' => <?= $modelClass ?>::STATUS_N];
+    	$andFilter = [];
     	if(!empty($searchModel->keywords)){
 			$andFilter[] = ['like', 'id', $searchModel->keywords];
 		}
@@ -83,7 +84,9 @@ class <?= $controllerClass ?> extends Controller{
 		if(Yii::$app->request->isPost){
 			$model->load(Yii::$app->request->post());
 			if($model->save()){
-				$this->outAjaxForm('#', 'success');
+				$this->outAjaxForm('#', 'update success'); //当前页面提示success
+				//$this->outAjaxForm('@'); //成功后返回上一页
+				//$this->outAjaxForm(Url::to(['xxx/yyy'])); //成功后返回指定路由
 			}else{
 				$errors = $model->getErrors();
 				if(!empty($errors)){
