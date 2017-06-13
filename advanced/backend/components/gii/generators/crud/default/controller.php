@@ -60,7 +60,7 @@ class <?= $controllerClass ?> extends Controller{
 		if(Yii::$app->request->isPost){
 			$model->load(Yii::$app->request->post());
 			if ($model->save()) {
-				return $this->outAjaxForm(Url::to(['/<?= strtolower($modelClass); ?>/index']));
+				return $this->outAjaxForm('@');
 			} else {
 				$errors = $model->getErrors();
 				if(!empty($errors)){
@@ -84,8 +84,8 @@ class <?= $controllerClass ?> extends Controller{
 		if(Yii::$app->request->isPost){
 			$model->load(Yii::$app->request->post());
 			if($model->save()){
-				$this->outAjaxForm('#', 'update success'); //当前页面提示success
-				//$this->outAjaxForm('@'); //成功后返回上一页
+				$this->outAjaxForm('@'); //成功后返回上一页
+				//$this->outAjaxForm('#', 'update success'); //当前页面提示success
 				//$this->outAjaxForm(Url::to(['xxx/yyy'])); //成功后返回指定路由
 			}else{
 				$errors = $model->getErrors();

@@ -23,33 +23,51 @@ class RouteController extends Controller{
 	}
 	
 	public function actionAdd(){
-		$model = new AuthRoute();
-		if(Yii::$app->request->isPost){
-			$model->load(Yii::$app->request->post());
-			$model->add_time = time();
-			$model->edit_time = 0;
-			if($model->save()){
-				$this->checkCache();
-				return $this->redirect(['/auth/route/index']);
-			}
-		}
-		return $this->renderAjax('form', ['model' => $model]);
+	    $model = new AuthRoute();
+	    if(Yii::$app->request->isPost){
+	        $model->load(Yii::$app->request->post());
+	        $model->add_time = time();
+	        $model->edit_time = 0;
+	        if ($model->save()) {
+	            $this->checkCache();
+	            return $this->outAjaxForm('@');
+	        }else{
+	            $errors = $model->getErrors();
+	            if(!empty($errors)){
+	                foreach($errors as $error){
+	                    $error = is_array($error) ? array_pop($error) : $error;
+	                    return $this->outAjaxForm('', $error);
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	    return $this->render('form', ['model' => $model]);
 	}
 	
 	public function actionEdit(){
-		$model = AuthRoute::findOne(['id' => $this->getGetValue('id')]);
-		if(empty($model)){
-			throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-		}
-		if(Yii::$app->request->isPost){
-			$model->load(Yii::$app->request->post());
-			$model->edit_time = time();
-			if($model->save()){
-				$this->checkCache();
-				return $this->redirect(['/auth/route/index']);
-			}
-		}
-		return $this->renderAjax('form', ['model' => $model]);
+	    $model = AuthRoute::findOne(['id' => $this->getGetValue('id')]);
+	    if(empty($model)){
+	        throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+	    }
+	    if(Yii::$app->request->isPost){
+	        $model->load(Yii::$app->request->post());
+	        $model->edit_time = time();
+	        if($model->save()){
+	            $this->checkCache();
+	            return $this->outAjaxForm('@');
+	        }else{
+	            $errors = $model->getErrors();
+	            if(!empty($errors)){
+	                foreach($errors as $error){
+	                    $error = is_array($error) ? array_pop($error) : $error;
+	                    return $this->outAjaxForm('', $error);
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	    return $this->render('form', ['model' => $model]);
 	}
 	
 	public function actionDelete(){
@@ -86,7 +104,7 @@ class RouteController extends Controller{
 						])->execute();
 				if($count){
 					$this->checkCache();
-					return $this->outAjaxForm('#', 'success');
+					return $this->outAjaxForm('@');
 				}
 			}else{
 				$errors = $model->getErrors();

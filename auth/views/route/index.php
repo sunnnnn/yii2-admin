@@ -3,16 +3,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
 
 $this->title = '路由映射列表';
 $this->params['breadcrumbs'][] = $this->title;
 
-Modal::begin([
-	'id' => 'operate-modal',
-	'header' => '<h4 class="modal-title"></h4>',
-]);
-Modal::end();
 ?>
 <section class="content">
 	<div class="row">
@@ -40,8 +34,8 @@ Modal::end();
 					<h3 class="box-title"><?= Html::encode($this->title) ?></h3>
 					
 					<div class="box-tools">
-						<?= Html::a('<i class="fa fa-plus"></i> 添加路由', 'javascript:;', [
-								'class' => 'btn btn-success ajax-add', 
+						<?= Html::a('<i class="fa fa-plus"></i> 添加路由', ['/auth/route/add'], [
+								'class' => 'btn btn-success', 
 						]) ?>
 					</div>
 				</div>
@@ -71,8 +65,8 @@ Modal::end();
 								"header" => "操作",
 								"buttons" => [
 									"update" => function ($url, $model, $key){
-										return Html::a('<i class="fa fa-pencil"></i> 编辑', 'javascript:;', [
-											"class" => "btn btn-sm btn-primary ajax-edit"
+                                        return Html::a('<i class="fa fa-pencil"></i> 编辑', ['/auth/route/edit', 'id' => $model->id], [
+											"class" => "btn btn-sm btn-primary"
 										]);
 									},
 									"delete" => function($url, $model, $key){
@@ -90,51 +84,3 @@ Modal::end();
 		</div>
 	</div>
 </section>
-<?php $this->beginBlock('form') ?> 
-$(function(){
-	$('.ajax-add').click(function(){
-		var load = layer.load();
-		$.get(
-			'<?= Url::to(['/auth/route/add']); ?>',
-			function(result){
-				layer.close(load);
-				$('.modal-body').html(result);
-				$('#operate-modal').modal();
-			}
-		).error(function(xhr){
-			layer.close(load);
-			if(xhr.status == '403'){
-				layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
-			}else if(xhr.status == '404'){
-				layer.msg('请求的页面不存在', {icon: 2, offset: '100px'});
-			}else{
-	        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
-			}
-		});
-	});
-	
-	$('.ajax-edit').click(function(){
-		var id = $(this).closest('tr').data('key');
-		var load = layer.load();
-		$.get(
-			'<?= Url::to(['/auth/route/edit']); ?>',
-			{'id': id},
-			function(result){
-				layer.close(load);
-				$('.modal-body').html(result);
-				$('#operate-modal').modal();
-			}
-		).error(function(xhr){
-			layer.close(load);
-			if(xhr.status == '403'){
-				layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
-			}else if(xhr.status == '404'){
-				layer.msg('请求的页面不存在', {icon: 2, offset: '100px'});
-			}else{
-	        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
-			}
-		});
-	});
-});
-<?php $this->endBlock() ?>  
-<?php $this->registerJs($this->blocks['form'], \yii\web\View::POS_END); ?> 
