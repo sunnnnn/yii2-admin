@@ -44,7 +44,7 @@ class m170519_062225_auth_db_manager extends Migration{
 				[20, '管理员【添加操作】', '/admin/add', time(), 0],
 				[21, '管理员【编辑操作】', '/admin/edit', time(), 0],
 				[22, '管理员【删除操作】', '/admin/delete', time(), 0],
-				[23, '管理员【修改密码】', '/admin/edit-passowrd', time(), 0],
+				[23, '管理员【修改密码】', '/admin/edit-password', time(), 0],
 				[24, '首页管理【所有权限】', '/site/*', time(), 0],
 				[25, '首页管理【首页展示】', '/site/index', time(), 0],
 				[26, '首页管理【退出登录】', '/site/logout', time(), 0],

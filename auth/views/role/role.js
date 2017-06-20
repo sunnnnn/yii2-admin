@@ -1,5 +1,4 @@
 $(function(){
-	console.log(_opts);
 	var init = function(){
 		search('avaliable');
 		search('assigned');
@@ -78,21 +77,30 @@ $(function(){
 	        error: function(xhr) {
 	        	layer.close(load);
 	        	that.attr('disabled', null);
-	        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
+				if(xhr.status == '403'){
+					layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
+				}else if(xhr.status == '404'){
+					layer.msg('请求页面未找到', {icon: 2, offset: '100px'});
+				}else{
+		        	layer.msg('网络错误，请稍后再试', {icon: 2, offset: '100px'});
+				}
 	        },
 	        success: function(result) {
-				console.log(result);
 		        if(result.url){
 					if(result.message){
 						layer.close(load);
 	        			that.attr('disabled', null);
 						layer.msg(result.message, {icon: 1, offset: '100px'});
 					}
-		        	location.href = result.url;
+					if(result.url == '@'){
+						history.back();
+					}else if(result.url.substr(0, 1) == '/'){
+			        	location.href = result.url;
+					}
 		        }else{
 		        	layer.close(load);
 	        		that.attr('disabled', null);
-//		        	layer.msg(result.message, {icon: 2, offset: '100px'});
+		        	layer.msg(result.message, {icon: 2, offset: '100px'});
 		        }
 	        }
 	    });

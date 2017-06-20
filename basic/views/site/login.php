@@ -39,6 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php $this->beginBlock('login') ?> 
 $(function(){
+	document.onkeydown = function(e){ 
+	    var ev = document.all ? window.event : e;
+	    if(ev.keyCode == 13) {
+			$('.login-submit').click();
+		}
+	}
+	
 	$('.login-submit').click(function(){
     	var that = $(this);
     	that.attr('disabled', 'disabled');
