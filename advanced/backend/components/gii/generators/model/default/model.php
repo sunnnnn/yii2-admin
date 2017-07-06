@@ -116,7 +116,10 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 		}
 	
 		$dataProvider = new ActiveDataProvider([
-			'query' => $query->orderBy($order),
+			'query' => $query,
+			'sort' => [
+		        'defaultOrder' => $order
+		     ],
 			'pagination' => [
 				'pagesize' => 10,
 			],
