@@ -67,6 +67,9 @@ class AuthMenu extends \yii\db\ActiveRecord
     
     	$dataProvider = new ActiveDataProvider([
     		'query' => $query,
+    	    'sort' => [
+    	        'defaultOrder' => $order
+    	    ],
     		'pagination' => [
     			'pagesize' => 10,
     		],
