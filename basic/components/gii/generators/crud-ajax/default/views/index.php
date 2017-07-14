@@ -52,7 +52,7 @@ Modal::end();
 					
 					<div class="box-tools">
 						<?= '<?= ' ?> Html::a('<i class="fa fa-plus"></i> 添加', 'javascript:;', [
-						    'class' => 'btn btn-success btn-add-modal ?>', 
+						    'class' => 'btn btn-success btn-add-modal', 
 						    'data-action' => Url::to(['/<?= Inflector::camel2words(StringHelper::basename($generator->modelClass), false) ?>/add'])
 						]) ?>
 					</div>
