@@ -10,16 +10,15 @@ $(function(){
 	}
 	
 	if($('.ajax-form').length){
-		document.onkeydown = function(e){ 
-		    var ev = document.all ? window.event : e;
-		    if(ev.keyCode == 13) {
+		$('.ajax-form').find('input[type="text"]').keyup(function(e){
+		    if(e.keyCode == 13) {
 		    	if($('.ajax-form-submit').length){
 		    		$('.ajax-form-submit').click();
 		    	}else{
 		    		return false;
 		    	}
 			}
-		}
+		});
 	}
 	
 	$('.ajax-form-submit').click(function(){
