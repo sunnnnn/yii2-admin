@@ -1,0 +1,3 @@
+http://www.bootcss.com/p/bootstrap-datetimepicker/index.htm
+
+$('.dtpicker').datetimepicker({format: 'yyyy-mm-dd hh:ii',language: 'zh-CN',});
