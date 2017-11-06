@@ -9,6 +9,10 @@ $(function(){
 		$('.select2').select2();
 	}
 	
+	if($('.dtpicker').length){
+		$('.dtpicker').datetimepicker({language: 'zh-CN'})
+	}
+	
 	if($('.ajax-form').length){
 		$('.ajax-form').find('input[type="text"]').keyup(function(e){
 		    if(e.keyCode == 13) {
