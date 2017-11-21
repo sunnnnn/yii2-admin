@@ -1,9 +1,9 @@
 $(function(){
-	$(window).on('load', function() {
+//	$(window).on('load', function() {
 		if($(".loading-screen").length){
 		    $(".loading-screen").fadeOut("slow");
 		}
-	});
+//	});
 	
 	if($('.select2').length){
 		$('.select2').select2();
