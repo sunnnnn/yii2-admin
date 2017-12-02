@@ -1,24 +1,7 @@
 $(function(){
-//	$(window).on('load', function() {
-		if($(".loading-screen").length){
-		    $(".loading-screen").fadeOut("slow");
-		}
-//	});
 	
-	if($('.select2').length){
-		$('.select2').select2();
-	}
-	
-	if($('.ajax-form').length){
-		$('.ajax-form').find('input[type="text"]').keyup(function(e){
-		    if(e.keyCode == 13) {
-		    	if($('.ajax-form-submit').length){
-		    		$('.ajax-form-submit').click();
-		    	}else{
-		    		return false;
-		    	}
-			}
-		});
+	if($(".loading-screen").length){
+	    $(".loading-screen").fadeOut("slow");
 	}
 	
 	$('.ajax-form-submit').click(function(){
