@@ -5,17 +5,17 @@ use Yii;
 use yii\helpers\Html; 
 use yii\widgets\InputWidget; 
 use yii\web\UploadedFile;
-use app\models\UploadForm;
+use backend\models\UploadForm;
 
-class Widget extends InputWidget{
+class Upload extends InputWidget{
     
     private $_template = '<div class="form-group">{file}<div class="input-group">{input}<span class="input-group-btn">{button}</span></div></div>';
     private $_file     = '<input type="file" id="{key}-file" class="hide">';
-    private $_button   = '<a id="{key}-button" class="btn btn-default" href="javascript:;"><i class="glyphicon glyphicon-cloud-upload"></i> 上传</a>';
+    private $_button   = '<a id="{key}-button" class="btn btn-primary" href="javascript:;"><i class="glyphicon glyphicon-folder-open"></i>&nbsp; 选择 …</a>';
     
     public $_key         = 'form-upload';
     public $_class       = 'form-control';
-    public $_placeholder = '请输入文件链接，或点击上传';
+    public $_placeholder = '请直接输入文件链接地址，或选择本地文件';
     public $_action      = 'uplaod';
     public $_data        = [];
     
@@ -56,7 +56,7 @@ class Widget extends InputWidget{
         
         WidgetAsset::register($view);
         
-        $js = "
+        $js = <<<JS
             $(function(){
                 $('#{$this->_key}-button').click(function(){
             		$('#{$this->_key}-file').click();
@@ -82,6 +82,7 @@ class Widget extends InputWidget{
         			success: function(result){
                         layer.close(load);
         				console.log(result);
+                        that.val('');
         				if (result.status == 1) {
         					$('#{$this->options['id']}').val(result.path);
         				}else{
@@ -90,6 +91,7 @@ class Widget extends InputWidget{
         			},  
         			error: function(xhr) {
                         layer.close(load);
+                        that.val('');
         				if(xhr.status == '403'){
                             layer.msg('您没有足够的权限', {icon: 2, offset: '100px'});
         				}else if(xhr.status == '404'){
@@ -100,7 +102,7 @@ class Widget extends InputWidget{
         			}  
         		});
         	});
-        ";
+JS;
         
         $view->registerJs($js, $view::POS_END);
     }
