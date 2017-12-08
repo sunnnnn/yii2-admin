@@ -92,7 +92,7 @@ if (YII_ENV_DEV) {
 		    	'templates' => [ //设置我们自己的模板
 		    		//模板名 => 模板路径
 		    		'sunnnnn-admin-curd' => '@app/components/gii/generators/crud/default',
-		    	    'sunnnnn-admin-curd-ajax' => '@backend/components/gii/generators/crud-ajax/default',
+		    	    'sunnnnn-admin-curd-ajax' => '@app/components/gii/generators/crud-ajax/default',
 		    	]
 	    	],
 	    	'model' => [ //生成器名称
