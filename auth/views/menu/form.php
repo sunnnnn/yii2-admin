@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sunnnnn\admin\auth\assets\SelectAsset;
 SelectAsset::register($this);
+$this->registerJs("$('.select2').select2();", yii\web\View::POS_END);
 
 $this->title = empty($model->id) ? '添加菜单' : '编辑菜单';
 $this->params['breadcrumbs'][] = ['label' => '菜单列表', 'url' => Url::to(['/auth/menu/index'])];
