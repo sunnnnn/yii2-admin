@@ -1,22 +1,19 @@
 <?php
-namespace common\components\widgets\upload;
+namespace backend\components\widgets\import;
 
-use Yii;
 use yii\helpers\Html; 
 use yii\widgets\InputWidget; 
-use yii\web\UploadedFile;
-use backend\models\UploadForm;
 
-class Upload extends InputWidget{
+class Import extends InputWidget{
     
-    private $_template = '<div class="form-group">{file}<div class="input-group">{input}<span class="input-group-btn">{button}</span></div></div>';
+    private $_template = '<span>{file}{button}</span>';
     private $_file     = '<input type="file" id="{key}-file" class="hide">';
-    private $_button   = '<a id="{key}-button" class="btn btn-primary" href="javascript:;"><i class="glyphicon glyphicon-folder-open"></i>&nbsp; 选择 …</a>';
+    private $_button   = '<a id="{key}-button" class="btn btn-primary" href="javascript:;"><i class="glyphicon glyphicon-open"></i>&nbsp; {label}</a>';
     
-    public $_key         = 'form-upload';
-    public $_class       = 'form-control';
-    public $_placeholder = '请直接输入文件链接地址，或选择本地文件';
-    public $_action      = 'uplaod';
+    public $_key         = 'import';
+    public $_class       = 'hide';
+    public $_label       = '导入';
+    public $_action      = 'import';
     public $_data        = [];
     
     public function run(){
@@ -29,23 +26,15 @@ class Upload extends InputWidget{
             $this->options['class'] = empty($this->options['class']) ? $this->_class : $this->_class.' '.$this->options['class'];
         }
         
-        if(!empty($this->_placeholder) && empty($this->options['placeholder'])){
-            $this->options['placeholder'] = $this->_placeholder;
-        }
-        
         if(!empty($this->_data) && is_array($this->_data)){
             foreach($this->_data as $key => $value){
                 $this->options['data-'.$key] = $value;
             }
         }
         
-        $template = strtr(strtr($this->_template, ['{file}' => $this->_file, '{button}' => $this->_button]), ['{key}' => $this->_key]);
+        $template = strtr(strtr($this->_template, ['{button}' => $this->_button]), ['{key}' => $this->_key, '{label}' => $this->_label]);
         
-        if($this->hasModel()){
-            $input = strtr($template, ['{input}' => Html::activeTextInput($this->model, $this->attribute, $this->options)]);
-        }else{
-            $input = strtr($template, ['{input}' => Html::textInput($this->name, null, $this->options)]);
-        }
+        $input = strtr($template, ['{file}' => Html::fileInput($this->name, null, $this->options)]);
         
         $this->renderAsset();
         echo $input;
@@ -59,18 +48,21 @@ class Upload extends InputWidget{
         $js = <<<JS
             $(function(){
                 $('#{$this->_key}-button').click(function(){
-            		$('#{$this->_key}-file').click();
+                    $('#{$this->options['id']}').click();
             	});
 
             });
 
-            $('#{$this->_key}-file').change(function(){
+            $('#{$this->options['id']}').change(function(){
         		var that = $(this);
         		if(!that.val()){
         			return false;
         		}
         		var formData = new FormData();
         		formData.append('UploadForm[file]', that.get(0).files[0]); 
+                $.each(that.data(), function(k, v){
+        			formData.append('Data['+ k +']', v); 
+        		});
                 var load = layer.load();
         		$.ajax({
         			url: '{$this->_action}',
@@ -84,7 +76,13 @@ class Upload extends InputWidget{
         				console.log(result);
                         that.val('');
         				if (result.status == 1) {
-        					$('#{$this->options['id']}').val(result.path);
+                            layer.alert(result.message, {
+                        		icon: 1,
+                        		yes: function(index, layero){
+                        			layer.close(index);
+                        			location.reload();
+                        		}
+                        	});
         				}else{
                             layer.msg(result.message, {icon: 2, offset: '100px'});
         				}  
@@ -105,29 +103,6 @@ class Upload extends InputWidget{
 JS;
         
         $view->registerJs($js, $view::POS_END);
-    }
-    
-    public static function upload($path = '', $scenario = UploadForm::SCENARIO_IMAGE, $basename = false){
-        set_time_limit(0);
-        $model = new UploadForm(['scenario' => $scenario]);
-        $model->file = UploadedFile::getInstance($model, 'file');
-        if (!empty($model->file) && $model->validate()) {
-            try{
-                $path = Yii::$app->helper->file()->upload($model->file, $path, $basename);
-                return $path;
-            }catch(\Exception $e){
-                throw new \Exception($e->getMessage());
-            }
-        }else{
-            $errors = $model->getErrors();
-            if(!empty($errors)){
-                foreach($errors as $error){
-                    $error = is_array($error) ? array_pop($error) : $error;
-                    throw new \Exception($error);
-                    break;
-                }
-            }
-        }
     }
     
 }

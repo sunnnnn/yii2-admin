@@ -1,5 +1,5 @@
 <?php
-namespace common\components\widgets\upload;
+namespace app\components\widgets\import;
 
 use yii\web\AssetBundle;
 
@@ -16,5 +16,6 @@ class WidgetAsset extends AssetBundle{
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
+        'app\assets\LayerAsset'
     ];
 }

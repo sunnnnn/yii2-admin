@@ -34,7 +34,7 @@ class AdminController extends Controller{
 	    	$model->add_time = time();
 	    	$model->login_time = 0;
 	    	if ($model->save()) {
-	    		return $this->outAjaxForm(Url::to(['/admin/index']));
+	    		return $this->outAjaxForm('@');
 	    	}else{
 	    		$errors = $model->getErrors();
 	    		if(!empty($errors)){
@@ -64,7 +64,7 @@ class AdminController extends Controller{
     		$data['password'] = empty($data['password']) ? $model->password : Yii::$app->security->generatePasswordHash($data['password']);
     		$model->setAttributes($data);
     		if($model->save()){
-    			$this->outAjaxForm('#', 'success');
+    			$this->outAjaxForm('@');
     		}else{
     			$errors = $model->getErrors();
     			if(!empty($errors)){
